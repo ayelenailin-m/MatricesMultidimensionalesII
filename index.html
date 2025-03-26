@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrices Multidimensionales - Parte 2</title>
+</head>
+<body>
+    <h1>Ejecutando desde consola</h1>
+    <p>Abrí la consola del navegador (F12 o clic derecho → Inspeccionar → Consola) y seguí las instrucciones.</p>
+
+    <script>
+        let personas = [];
+
+        function ingresarPersona() {
+            alert("Ingreso de nueva persona");
+
+            const nombre = prompt("Ingresa el nombre:").trim();
+            const apellido = prompt("Ingresa el apellido:").trim();
+            const dni = prompt("Ingresa el DNI:").trim();
+
+            const telefonosInput = prompt("Ingresa los teléfonos separados por comas:");
+            const telefonos = telefonosInput.split(",").map(t => t.trim()).filter(t => t !== "");
+
+            const hijosInput = prompt("Ingresa los nombres de los hijos separados por comas:");
+            const hijos = hijosInput.split(",").map(h => h.trim()).filter(h => h !== "");
+
+            const persona = [nombre, apellido, dni, telefonos, hijos];
+            personas.push(persona);
+
+            alert("Persona ingresada correctamente.");
+        }
+
+        function mostrarTodos() {
+            if (personas.length === 0) {
+                alert("No hay personas cargadas.");
+                return;
+            }
+
+            console.clear();
+            console.log("Matriz de personas:");
+            console.log(personas);
+
+            console.log("\nListado detallado:");
+            personas.forEach(p => {
+                const [nombre, apellido, dni, telefonos, hijos] = p;
+                console.log(`${nombre} ${apellido}, DNI: ${dni}, Teléfonos: ${telefonos.length}, Hijos: ${hijos.length}`);
+            });
+
+            alert("Datos mostrados por consola.");
+        }
+
+        function filtrarPorDni() {
+            const dniBuscar = prompt("Ingresa el DNI a buscar:").trim();
+            const persona = personas.find(p => p[2] === dniBuscar);
+
+            if (persona) {
+                const [nombre, apellido, dni, telefonos, hijos] = persona;
+                alert(`Datos de ${nombre} ${apellido}:\nDNI: ${dni}\nTeléfonos: ${telefonos.length}\nHijos: ${hijos.length}`);
+            } else {
+                alert("No se encontró una persona con ese DNI.");
+            }
+        }
+
+        function menu() {
+            let opcion;
+            do {
+                opcion = prompt(`
+                    --- Menú ---
+                    1. Ingresar nueva persona
+                    2. Mostrar todos los datos
+                    3. Filtrar por DNI
+                    4. Salir
+
+                    Elige una opción:`).trim();
+
+                switch (opcion) {
+                    case "1":
+                        ingresarPersona();
+                        break;
+                    case "2":
+                        mostrarTodos();
+                        break;
+                    case "3":
+                        filtrarPorDni();
+                        break;
+                    case "4":
+                        alert("Saliendo del programa...");
+                        break;
+                    default:
+                        alert("Opción inválida. Intentá de nuevo.");
+                }
+            } while (opcion !== "4");
+        }
+
+        // Ejecutamos el programa automáticamente al cargar la página
+        menu();
+    </script>
+</body>
+</html>
